@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_notes_white"
+            android:title="@string/enter_data"/>
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/pencil"
+            android:title="@string/review_data" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/check"
+            android:title="@string/send_data" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_menu_send"
+            android:title="@string/view_sent_forms" />
+    </group>
+
+    <item android:title="Configuration">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_cloud"
+                android:title="@string/get_forms" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_clear_white"
+                android:title="@string/manage_files" />
+        </menu>
+    </item>
+
+</menu>
