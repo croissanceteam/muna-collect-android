@@ -291,7 +291,7 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:8.8.1"
 
     // Annotations understood by FindBugs
-    compileOnly 'com.google.code.findbugs:annotations:3.0.1'
+    compileOnly 'com.github.spotbugs:spotbugs-annotations:3.1.12'
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 
     // Used to generate documentation screenshots.
