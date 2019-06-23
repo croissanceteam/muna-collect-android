@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <string name="prompt_email">Nom d\'utilisateur</string>
+  <string name="prompt_password">Mot de passe</string>
   <string name="show_password">Afficher le mot de passe</string>
   <string name="activity_not_found">Aucune activité à gérer: %s</string>
   <string name="view_image">Afficher l\'image</string>
@@ -82,6 +84,8 @@
   <string name="leaving_repeat_ask"> Ajouter un nouveau groupe ?</string>
   <string name="list_failed_with_error">La liste a echouée. %s.</string>
   <string name="loading_form">Chargement du formulaire…</string>
+  <string name="action_sign_in">Connectez vous</string>
+  <string name="title_activity_login">Se connecter</string>
   <string name="load_remote_form_error">Erreur de récupération de la liste</string>
   <string name="location_provider_accuracy">Utilisation de %1$s. La précision est de %2$s m.</string>
   <string name="location_accuracy">La précision est de %1$s mètres.</string>

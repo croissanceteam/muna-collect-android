@@ -74,7 +74,7 @@ android {
         versionCode LEGACY_BUILD_NUMBER_OFFSET + getMasterCommitCount()
         versionName getVersionName()
         testInstrumentationRunner('android.support.test.runner.AndroidJUnitRunner')
-        multiDexEnabled=true
+        multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
         archivesBaseName = 'collect'
     }
@@ -245,6 +245,7 @@ dependencies {
 
     // Real LeakCanary for debug builds only: notifications, analysis, etc
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:support-annotations:28.0.0'
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.leakyCanaryVersion}"
     // No-Op version of LeakCanary for release builds: no notifications, no analysis, nothing
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.leakyCanaryVersion}"
