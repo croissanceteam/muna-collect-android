@@ -3,12 +3,14 @@ package org.odk.collect.android.ui.login;
 import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -18,9 +20,26 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.odk.collect.android.R;
 import org.odk.collect.android.ui.login.LoginViewModel;
 import org.odk.collect.android.ui.login.LoginViewModelFactory;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -44,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginFormState == null) {
                     return;
                 }
-                loginButton.setEnabled(loginFormState.isDataValid());
                 if (loginFormState.getUsernameError() != null) {
                     usernameEditText.setError(getString(loginFormState.getUsernameError()));
                 }
@@ -87,8 +105,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+
             }
         };
         usernameEditText.addTextChangedListener(afterTextChangedListener);
@@ -108,12 +125,49 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String result = "";
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 usernameEditText.setEnabled(false);
                 passwordEditText.setEnabled(false);
+                LoginActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AsyncHttpClient client = new AsyncHttpClient();
+                        RequestParams params=new RequestParams();
+                        params.put("username",usernameEditText.getText().toString());
+                        params.put("password",passwordEditText.getText().toString());
+                        client.post
+                                (
+                                        "http://vps59258.lws-hosting.com:8080/api/login",
+                                        params,
+                                        new TextHttpResponseHandler() {
+                                            @Override
+                                            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                                                Log.i("Error :",Integer.toString(statusCode));
+                                            }
+
+                                            @Override
+                                            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                                                try {
+                                                    JSONObject jsonObject=new JSONObject(responseString);
+                                                    Log.i("Succes :",jsonObject.toString());
+                                                } catch (JSONException e) {
+                                                    Log.i("Error json:",e.getMessage());
+                                                }
+
+
+                                            }
+                                        }
+                                );
+                    }
+
+                });
                 //loginViewModel.login(usernameEditText.getText().toString(),
-                  //      passwordEditText.getText().toString());
+                  //
+                //      passwordEditText.getText().toString());
             }
+
         });
     }
 
